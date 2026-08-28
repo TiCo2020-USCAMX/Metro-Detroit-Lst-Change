@@ -2,7 +2,7 @@
 This project uses Google Earth Engine to calculate changes in land-surface temperature across Wayne, Oakland, and Macomb counties by using Landsat 8/9.
 the analysis compares seasonal land-surface temperature between November 2015-April 2016 and November 2025-April 2026.
 
-Objectives
+## Objectives
 * Defining the Metro Detroit study area using TIGER: US Census Counties 2018
 * Process Landsat thermal imagery using Google Earth Engine
 * Remove cloud and cloud-shadow pixels using the QA_PIXEL band.
@@ -11,17 +11,17 @@ Objectives
 * Calculate spatial changes in LST between the two periods.
 * Export the resulting LST difference raster for future GIS Analysis.
 
-Study Area
-the study area consist of
+## Study Area
+the study area consists of
 * Wayne County
 * Macomb County
 * Oakland County
-  hese counties encompass the core metropolitan Detroit region.
+These counties encompass the core metropolitan Detroit region.
 
-Data
+## Data
 Landsat 8
 * USGS Landsat 8 Level 2, Collection 2, Tier 1
-* LANDSAT/LC09/C02/T1_L2
+* LANDSAT/LC08/C02/T1_L2
 * November 2015-March 2016
 
 Landsat 9
@@ -29,19 +29,19 @@ Landsat 9
 * LANDSAT/LC09/C02/T1_L2
 * November 2025 - March 2026
 
-County Boundaries
+## County Boundaries
 * U.S. Census TIGER 2018 Counties
 
-Methods
+## Methods
 1. Study Area Selection
-The Metro Detorit study area was created by filtering the Michigan county boundaries using the STATEFP and NAME attributes.
+The Metro Detroit study area was created by filtering the Michigan county boundaries using the STATEFP and NAME attributes.
 2. Cloud Masking
 Cloud Masking was done using Landsat QA_PIXEL quality-assurance band
-4. Land Surface Temperature
+3. Land Surface Temperature
 The Landsat ST_B10 surface-temperature band was converted from Kelvin to Celsius using the Collection 2 scaling factors.
-6. Seasonal Composites
-A median composite was created for each observation period to reduce the influence of individuals observations and produce representative seasonal LST surface.
-8. Change Detection
+4. Seasonal Composites
+A median composite was created for each observation period to reduce the influence of individual observations and produce representative seasonal LST surface.
+5. Change Detection
 LST change was calculated as:
 LST Change = 2025-2026 LST - 2015-2016 LST
 Therefore:
@@ -49,19 +49,22 @@ Therefore:
 * Negative values indicate cooler surface temperature in 2025-2026.
 * Values near zero indicate little change.
 
-Results
-The resulting raster provides a spatial representation of land-surface temperature differencs across Metro Detroit.
+## Results
+The resulting raster provides a spatial representation of land-surface temperature differences across Metro Detroit.
 The analysis produced a mean LST difference across the study area of approximately −6.47°C.
 This result represents the difference between the two analyzed seasonal observation periods and should not be interpreted by itself as a long-term climate trend.
-Tools
+
+## Tools
 * Google Earth Engine
 * JavaScript
 * Landsat 8/9
 
-Limitations
-This analysis compares two specific seasonal periods rather than a continous long-term anomaly. Differences in weather conditions, snow cover, image availability, adn the timing of satellite observation may influence the observed LST differences.
+## Limitations
+This analysis compares two specific seasonal periods rather than a continuous long-term anomaly. Differences in weather conditions, snow cover, image availability, and the timing of satellite observation may influence the observed LST differences.
 
-#Metro-Detroit-Code
+## Metro-Detroit-Code
+```javascript
+
 var metroDetroit = counties.filter(
   ee.Filter.eq('STATEFP', '26')
   ).filter(
@@ -71,14 +74,14 @@ var metroDetroit = counties.filter(
     
   Map.centerObject(metroDetroit, 9);
   Map.addLayer(metroDetroit, {color: 'black'}, 'Metro Detroit');
-                                 Masking Clouds in the image by using QA_PIXEL
+  
 function maskClouds(image) {
   var qa = image.select('QA_PIXEL');
   var cloudShadowMask = qa.bitwiseAnd(1 << 4).eq (0);
   var cloudMask = qa.bitwiseAnd(1 << 3).eq(0);
   return image.updateMask(cloudShadowMask). updateMask(cloudMask);
 }
-                                    Surface Temperature Conversion
+
 function convertToCelsius(image) {
   var LstCelsius = image.select('ST_B10')
   .multiply(0.00341802)
@@ -141,3 +144,4 @@ scale: 30,
 maxPixels:1e9
 });
 print('Metro Detroit LST Change Statistics:', stats);
+```
