@@ -50,9 +50,18 @@ Therefore:
 * Values near zero indicate little change.
 
 ## Results
-The resulting raster provides a spatial representation of land-surface temperature differences across Metro Detroit.
-The analysis produced a mean LST difference across the study area of approximately −6.47°C.
-This result represents the difference between the two analyzed seasonal observation periods and should not be interpreted by itself as a long-term climate trend.
+* The resulting raster provides a spatial representation of land-surface temperature differences across Metro Detroit.
+* The analysis produced a mean LST difference across the study area of approximately −6.47°C.
+* This result represents the difference between the two analyzed seasonal observation periods and should not be interpreted by itself as a long-term climate trend.
+
+### LST 2015-2016
+<img width="2558" height="646" alt="LST8 (2015-2016)" src="https://github.com/user-attachments/assets/9677a8a0-15b5-447a-b2a5-129f4184169e" />
+
+### LST 2025-2026
+<img width="2559" height="649" alt="LST9 (2025-2026)" src="https://github.com/user-attachments/assets/83361fc5-3dc5-410f-8218-df184fef8a35" />
+
+### LST Difference
+<img width="2557" height="650" alt="LST Difference (2026 minus 2016)" src="https://github.com/user-attachments/assets/44917e3c-bf3a-44ff-a4ea-1017f3ec6d34" />
 
 ## Tools
 * Google Earth Engine
