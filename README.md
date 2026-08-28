@@ -134,14 +134,6 @@ Map.addLayer(LST_2015_2016, tempVis, 'LST8 (2015-2016)');
 Map.addLayer(LST_2025_2026, tempVis, 'LST9 (2025-2026)');
 Map.addLayer(LST_difference, diffVis, 'LST Difference (2026 minus 2016)');
 
-Export.image.toDrive({
-  image: LST_difference,
-  description: 'Detroit_LST_Diff_2016_2026',
-  scale: 30, 
-  region: metroDetroit.geometry(),
-  maxPixels:1e9
-});
-
 var stats = LST_difference.reduceRegion({
 reducer: ee.Reducer.mean()
 .combine({
