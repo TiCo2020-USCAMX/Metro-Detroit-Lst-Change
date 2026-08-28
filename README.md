@@ -61,7 +61,7 @@ Tools
 Limitations
 This analysis compares two specific seasonal periods rather than a continous long-term anomaly. Differences in weather conditions, snow cover, image availability, adn the timing of satellite observation may influence the observed LST differences.
 
-
+#Metro-Detroit-Code
 var metroDetroit = counties.filter(
   ee.Filter.eq('STATEFP', '26')
   ).filter(
